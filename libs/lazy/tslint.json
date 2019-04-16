@@ -1,0 +1,7 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "lazy-loaded-nx", "camelCase"],
+    "component-selector": [true, "element", "lazy-loaded-nx", "kebab-case"]
+  }
+}

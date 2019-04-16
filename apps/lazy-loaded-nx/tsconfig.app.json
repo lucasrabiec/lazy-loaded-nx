@@ -5,5 +5,9 @@
     "types": []
   },
   "exclude": ["src/test-setup.ts", "**/*.spec.ts"],
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "../../libs/lazy/src/index.ts",
+    "../../libs/lazy/src/lib/nested/index.ts"
+  ]
 }

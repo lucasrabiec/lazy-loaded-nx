@@ -13,6 +13,9 @@
     },
     "lazy-loaded-nx-e2e": {
       "tags": []
+    },
+    "lazy": {
+      "tags": []
     }
   }
 }
