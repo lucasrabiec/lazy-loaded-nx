@@ -1,0 +1,142 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "lazy-loaded-nx": {
+      "root": "apps/lazy-loaded-nx/",
+      "sourceRoot": "apps/lazy-loaded-nx/src",
+      "projectType": "application",
+      "prefix": "lazy-loaded-nx",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/lazy-loaded-nx",
+            "index": "apps/lazy-loaded-nx/src/index.html",
+            "main": "apps/lazy-loaded-nx/src/main.ts",
+            "polyfills": "apps/lazy-loaded-nx/src/polyfills.ts",
+            "tsConfig": "apps/lazy-loaded-nx/tsconfig.app.json",
+            "assets": [
+              "apps/lazy-loaded-nx/src/favicon.ico",
+              "apps/lazy-loaded-nx/src/assets"
+            ],
+            "styles": ["apps/lazy-loaded-nx/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/lazy-loaded-nx/src/environments/environment.ts",
+                  "with": "apps/lazy-loaded-nx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "lazy-loaded-nx:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "lazy-loaded-nx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "lazy-loaded-nx:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/lazy-loaded-nx/tsconfig.app.json",
+              "apps/lazy-loaded-nx/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/lazy-loaded-nx/jest.config.js",
+            "tsConfig": "apps/lazy-loaded-nx/tsconfig.spec.json",
+            "setupFile": "apps/lazy-loaded-nx/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "lazy-loaded-nx-e2e": {
+      "root": "apps/lazy-loaded-nx-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/lazy-loaded-nx-e2e/cypress.json",
+            "tsConfig": "apps/lazy-loaded-nx-e2e/tsconfig.e2e.json",
+            "devServerTarget": "lazy-loaded-nx:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "lazy-loaded-nx:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/lazy-loaded-nx-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics"
+  },
+  "schematics": {
+    "@nrwl/schematics:application": {
+      "style": "scss",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:library": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "lazy-loaded-nx"
+}
