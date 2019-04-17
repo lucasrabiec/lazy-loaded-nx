@@ -4,10 +4,10 @@ It is a sample repo with lazy loaded modules in Nx project.
 
 ## How to...
 
-The following instruction shows how to load modules:
-* from module located in the same project as an app
-* from main module located in a separate lib
-* from nested module located in a separate lib
+The following instruction shows how to load modules located:
+* in the same project as an app
+* in a separate lib (main module)
+* in a separate lib (nested module)
 
 In each of these cases, add routes and import RouterModule.forChild(routes) in a specific module file.
 
