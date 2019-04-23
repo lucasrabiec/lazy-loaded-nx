@@ -26,6 +26,14 @@ const routes: Routes = [
 export class ...
 ```
 
+Also add path in main `tsconfig.json`
+
+```typescript
+"paths": {
+  "@lazy-loaded-nx/lazy": ["libs/lazy/src/index.ts"]
+}
+```
+
 ### Module located in the same project as an app
 To get it works just add path to `app/app-routing.module.ts`
 ```typescript
