@@ -47,7 +47,7 @@ To get it works just add path to `app/app-routing.module.ts`
 export * from './lib/lazy.module';
 ```
 
-* Add include to this index file in `tsconfig.app.json` in app project
+* Add path to this index.ts to `include` array in `tsconfig.app.json` in app project
 ```typescript
 "../../libs/lazy/src/index.ts",
 ```
@@ -71,7 +71,7 @@ export * from './lib/nested/nested.module'
 export * from './nested.module'
 ```
 
-* Add include to nested index file in `tsconfig.app.json` in app project
+* Add path to this index.ts to `include` array in `tsconfig.app.json` in app project
 ```typescript
 "../../libs/lazy/src/lib/nested/index.ts"
 ```
