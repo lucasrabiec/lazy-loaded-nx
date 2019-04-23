@@ -12,4 +12,4 @@ const routes: Routes = [
   declarations: [Component1Component, Component2Component],
   imports: [RouterModule.forChild(routes)]
 })
-export class NestedModule { }
+export class Feature1Module { }

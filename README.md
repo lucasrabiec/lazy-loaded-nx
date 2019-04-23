@@ -6,11 +6,11 @@ It is a sample repo with lazy loaded modules in Nx project.
 
 The following instruction shows how to load modules:
 * from module located in the same project as an app
-* from main module located in a separate lib
-* from nested module located in a separate lib
+* from module located in a separate lib
 
-In each of these cases, add routes and import RouterModule.forChild(routes) in a specific module file.
+### Module located in the same project as an app
 
+First you need to add routes and import RouterModule.forChild(routes) in a module file.
 ```typescript
 <imports...>
 
@@ -26,53 +26,69 @@ const routes: Routes = [
 export class ...
 ```
 
-### Module located in the same project as an app
 To get it works just add path to `app/app-routing.module.ts`
 ```typescript
 { path: 'same', loadChildren: './same/same.module#SameModule' },
 ```
 
-### Main module located in a separate lib
+### Module located in a separate lib
 
-* Export module in main `index.ts`
+In each feature's module file add routes and import RouterModule.forChild(routes).
 ```typescript
-export * from './lib/lazy.module';
+<imports...>
+
+const routes: Routes = [
+  { path: '', component: Component1Component },
+  { path: 'component2', component: Component2Component }
+];
+
+@NgModule({
+  declarations: [Component1Component, Component2Component],
+  imports: [RouterModule.forChild(routes)]
+})
+export class ...
 ```
 
-* Add include to this index file in `tsconfig.app.json` in app project
+In main lib's module add routes and import RouterModule.forChild(routes) for specific feature.
+```typescript
+<imports...>
+
+const routes: Routes = [
+  { path: 'feature1', loadChildren: './feature1/feature1.module#Feature1Module' },
+  { path: 'feature2', loadChildren: './feature2/feature2.module#Feature2Module' }
+];
+
+@NgModule({
+  declarations: [Component1Component, Component2Component],
+  imports: [RouterModule.forChild(routes)]
+})
+export class ...
+```
+
+Then add path to `app/app-routing.module.ts`
+```typescript
+{ path: 'lazy', loadChildren: '@lazy-loaded-nx/lazy#LazyModule' }
+```
+
+Export modules in main lib's `index.ts`
+```typescript
+export * from './lib/lazy.module';
+export * from './lib/feature1/feature1.module';
+export * from './lib/feature2/feature2.module';
+
+```
+
+Add lib path to main `tsconfig.json`
+```typescript
+"paths": {
+  "@lazy-loaded-nx/lazy": ["libs/lazy/src/index.ts"]
+}
+```
+
+To get it builds without errors you need add path to main lib's index.ts file to include's array in `tsconfig.app.json` in app project
 ```typescript
 "../../libs/lazy/src/index.ts",
 ```
-
-* Add path to `app/app-routing.module.ts`
-```typescript
-  { path: 'lazy', loadChildren: '@lazy-loaded-nx/lazy#LazyModule' },
-```
-
-Notice that there is only `#LazyModule` not `lazy.module#LazyModule`. This is because we added export to main index.ts which exports all modules for us.
-
-### Nested module located in a separate lib
-
-* Export module in main `index.ts`
-```typescript
-export * from './lib/nested/nested.module'
-```
-
-* Also export module in nested `index.ts`
-```typescript
-export * from './nested.module'
-```
-
-* Add include to nested index file in `tsconfig.app.json` in app project
-```typescript
-"../../libs/lazy/src/lib/nested/index.ts"
-```
-
-* Add path to `app/app-routing.module.ts`
-```typescript
-  { path: 'nested', loadChildren: '@lazy-loaded-nx/lazy#NestedModule' }
-```
-
 ___
 
 This project was generated using [Nx](https://nx.dev).
