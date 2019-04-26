@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'same', loadChildren: './same/same.module#SameModule' },
-  { path: 'lazy', loadChildren: '@lazy-loaded-nx/lazy#LazyModule' }
+  { path: 'feature1', loadChildren: '@lazy-loaded-nx/lazy#Feature1Module' },
+  // { path: 'feature2', loadChildren: '@lazy-loaded-nx/lazy#Feature2Module' }
 ];
 
 @NgModule({
